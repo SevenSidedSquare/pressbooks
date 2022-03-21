@@ -26,11 +26,14 @@ jobs:
     - name: Install dependencies
       run: |
         #wp package install wp-cli/i18n-command
+        mkdir /home/runner/.wp-cli/
+        mkdir /home/runner/.wp-cli/packages/
         cd /home/runner/.wp-cli/packages/
-        composer config repositories.wp-cli '{"type": "composer","url": "https://wp-cli.org/package-index/","canonical": false}'
+        #composer config repositories.wp-cli '{"type": "composer","url": "https://wp-cli.org/package-index/","canonical": false}'
         cd ./
         wp package install pressbooks/pb-cli:2.1.0
         composer require jenssegers/blade:1.1.0
+        composer install
     - name: View pot file before update
       run: cat languages/pressbooks.pot
     - name: Update POT file
