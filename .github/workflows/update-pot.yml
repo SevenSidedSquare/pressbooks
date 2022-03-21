@@ -21,7 +21,7 @@ jobs:
     - name: Setup PHP with tools
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '7.3'
         tools: composer, wp-cli
     - name: Install dependencies
       run: |
@@ -31,13 +31,15 @@ jobs:
         cd ./
         wp package install pressbooks/pb-cli:2.1.0
         composer require jenssegers/blade:1.1.0
+    - name: View pot file before update
+      run: cat languages/pressbooks.pot
     - name: Update POT file
       run: wp pb make-pot . languages/pressbooks.pot --domain=pressbooks --slug=pressbooks --package-name="Pressbooks" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks/issues\"}"
     - name: View wp cli versions
       run: wp --info
     - name: View package dependency versions
       run: composer show
-    - name: View pot file
+    - name: View pot file after update
       run: cat languages/pressbooks.pot
       
 #     - name: Commit updated POT file
